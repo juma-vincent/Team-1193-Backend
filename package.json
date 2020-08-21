@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/BuildForSDGCohort2/Team-1193-Backend/issues"
   },
-  "homepage": "https://github.com/BuildForSDGCohort2/Team-1193-Backend#readme"
+  "homepage": "https://github.com/BuildForSDGCohort2/Team-1193-Backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
