@@ -7,10 +7,8 @@ const knex = require("knex");
 const db = knex({
   client: "pg",
   connection: {
-    host: "127.0.0.1",
-    user: "postgres",
-    password: "2416Vince",
-    database: "IntelligentFarm",
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
   },
 });
 
@@ -22,6 +20,8 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("This is working");
 });
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 app.get("/farmproduce", (req, res) => {
   db.select("*")
