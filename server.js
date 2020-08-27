@@ -18,7 +18,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("This is working");
+  res.send(
+    "This is the intelligent farm server. Grace Mwendwa, you're so gorgeous!! "
+  );
 });
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
