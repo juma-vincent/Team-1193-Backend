@@ -20,9 +20,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send(
-    "This is the intelligent farm server. Grace Mwendwa, you're so gorgeous!! "
-  );
+  res.send("This is the intelligent farm BuildForSDG project server");
 });
 
 app.get("/farmproduce", (req, res) => {
