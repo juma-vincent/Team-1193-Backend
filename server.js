@@ -3,12 +3,16 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt-nodejs");
 const cors = require("cors");
 const knex = require("knex");
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const db = knex({
   client: "pg",
   connection: {
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
+    host: "127.0.0.1",
+    user: "postgres",
+    password: "2416Vince",
+    database: "IntelligentFarm",
   },
 });
 
@@ -18,7 +22,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("This is the intelligent farm BuildForSDG project server");
+  res.send("This is the intelligent farm BuildForSDG project server.");
 });
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -73,6 +77,21 @@ app.post("/signin", (req, res) => {
       }
     })
     .catch((error) => res.status(400).json("wrong credentials"));
+});
+
+app.post("/payment", (req, res) => {
+  const body = {
+    source: req.body.token.id,
+    amount: req.body.amount,
+    currency: "usd",
+  };
+  stripe.charges.create(body, (stripeErr, stripeRes) => {
+    if (stripeErr) {
+      res.status(500).send({ error: stripeErr });
+    } else {
+      res.status(200).send({ success: stripeRes });
+    }
+  });
 });
 
 app.listen(process.env.PORT || 5000, () => {
