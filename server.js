@@ -79,19 +79,23 @@ app.post("/signin", (req, res) => {
     .catch((error) => res.status(400).json("wrong credentials"));
 });
 
-app.post("/payment", (req, res) => {
-  const body = {
-    source: req.body.token.id,
-    amount: req.body.amount,
-    currency: "usd",
-  };
-  stripe.charges.create(body, (stripeErr, stripeRes) => {
-    if (stripeErr) {
-      res.status(500).send({ error: stripeErr });
-    } else {
-      res.status(200).send({ success: stripeRes });
-    }
-  });
+// app.post("/payment", (req, res) => {
+//   const body = {
+//     source: req.body.token.id,
+//     amount: req.body.amount,
+//     currency: "usd",
+//   };
+//   stripe.charges.create(body, (stripeErr, stripeRes) => {
+//     if (stripeErr) {
+//       res.status(500).send({ error: stripeErr });
+//     } else {
+//       res.status(200).send({ success: stripeRes });
+//     }
+//   });
+// });
+
+app.get("/payment", (req, res) => {
+  res.send("payment is working");
 });
 
 app.listen(process.env.PORT || 5000, () => {
